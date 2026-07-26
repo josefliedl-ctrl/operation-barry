@@ -33,4 +33,99 @@
 /* Glitch-Effekt */
 @keyframes glitch {
   0% { text-shadow: 2px 2px #ff0044; }
-  25% { text-shadow: -2px -2px #00ffee
+  25% { text-shadow: -2px -2px #00ffee; }
+  50% { text-shadow: 3px -3px #ff0044; }
+  75% { text-shadow: -3px 3px #00ffee; }
+  100% { text-shadow: 2px 2px #ff0044; }
+}
+
+/* Hintergrund-Flackern */
+@keyframes shutdownFlash {
+  0% { background: black; }
+  50% { background: #220000; }
+  100% { background: black; }
+}
+</style>
+
+<script>
+function brutusAlert() {
+  const w = document.getElementById("brutusWarning");
+  if (w) {
+    w.style.display = "block";
+    const a = document.getElementById("alert");
+    if (a) a.play();
+    setTimeout(() => w.style.display = "none", 5000);
+  }
+}
+
+window.onload = brutusAlert;
+
+function checkAnswer() {
+  const input = document.getElementById("answer").value.trim().toLowerCase();
+  if (input === "barry") {
+
+    // Erfolgssound
+    const s = document.getElementById("success");
+    if (s) s.play();
+
+    // Overlay anzeigen
+    const overlay = document.getElementById("successOverlay");
+    overlay.style.display = "flex";
+
+    // Hintergrund animieren
+    document.body.style.animation = "shutdownFlash 0.3s infinite";
+
+    // Countdown starten
+    startCountdown();
+
+  } else {
+    alert("Falsches Lösungswort!");
+  }
+}
+
+function startCountdown() {
+  let time = 10;
+  const cd = document.getElementById("countdown");
+
+  const interval = setInterval(() => {
+    const t = document.getElementById("tick");
+    if (t) t.play();
+
+    cd.innerText = "Systemabschaltung in: " + time + " Sekunden";
+    time--;
+
+    if (time < 0) {
+      clearInterval(interval);
+      window.location.href = "index.html"; // Finale oder Neustart
+    }
+  }, 1000);
+}
+</script>
+</head>
+
+<body>
+
+<div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
+
+<!-- EPISCHES Shutdown-Overlay -->
+<div id="successOverlay">BRUTUS ERFOLGREICH DEAKTIVIERT</div>
+
+<h1>Mastercode – Finale</h1>
+
+<div class="container">
+  <p><strong>Einsatzkräfte:</strong><br>
+  Sie haben in den vorherigen Sektoren Hinweise zur Abschaltung von BRUTUS erhalten.<br>
+  Bitte kombinieren Sie die Hinweise zum Lösungswort.</p>
+
+  <p><strong>Lösungswort eingeben:</strong></p>
+
+  <input id="answer" placeholder="Lösungswort eingeben">
+  <button onclick="checkAnswer()">Bestätigen</button>
+
+  <div id="output"></div>
+  <div id="countdown"></div>
+</div>
+
+</body>
+</html>
+
