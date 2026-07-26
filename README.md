@@ -1,2 +1,2 @@
-# opeartion-barry
+# operation-barry
 barry
