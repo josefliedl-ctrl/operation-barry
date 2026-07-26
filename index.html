@@ -108,26 +108,21 @@ function startMission() {
     container.style.display = "block";
     status.style.display = "block";
 
-    // Audio laden
+    // Audio laden und starten
     audio.load();
-
-    // Fallback, falls Dauer nicht rechtzeitig geladen wird
-    let fallbackDuration = 8000; // 8 Sekunden
-
-    // Wenn die Dauer geladen ist
-    audio.addEventListener("loadedmetadata", () => {
-        startLoading(audio.duration * 1000);
-    });
-
-    // Falls loadedmetadata NICHT kommt → nach 1 Sekunde fallback starten
-    setTimeout(() => {
-        if (audio.duration === Infinity || audio.duration === 0) {
-            startLoading(fallbackDuration);
-        }
-    }, 1000);
-
-    // Audio starten
     audio.play();
+
+    // Wir warten, bis die Dauer bekannt ist
+    function startWhenReady() {
+        if (audio.duration && audio.duration > 0 && audio.duration !== Infinity) {
+            startLoading(audio.duration * 1000);
+        } else {
+            // Wenn die Dauer noch nicht da ist → nochmal versuchen
+            setTimeout(startWhenReady, 100);
+        }
+    }
+
+    startWhenReady();
 
     function startLoading(duration) {
         let progress = 0;
@@ -148,6 +143,7 @@ function startMission() {
     }
 }
 </script>
+
 
 
 
