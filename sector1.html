@@ -25,7 +25,7 @@ window.onload = brutusAlert;
 function checkAnswer() {
   const input = document.getElementById("answer").value.trim().toLowerCase();
   if (input === "england") {
-    document.getElementById("output").innerText = "Aachen";
+    document.getElementById("output").innerText = "Aachen - Sektor 2 freigeschalten";
     const s = document.getElementById("success");
     if (s) s.play();
     startCountdown();
@@ -35,7 +35,7 @@ function checkAnswer() {
 }
 
 function startCountdown() {
-  let time = 60;
+  let time = 10;
   const cd = document.getElementById("countdown");
   const interval = setInterval(() => {
     const t = document.getElementById("tick");
