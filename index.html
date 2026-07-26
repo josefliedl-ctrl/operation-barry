@@ -1,31 +1,134 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Operation BARRY</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>TOP SECRET – Operation BARRY</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        color: #f2d200; /* BRK‑Gelb aus der PowerPoint */
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 80px;
+    }
+
+    /* Gelber Rahmen wie in der PowerPoint */
+    .frame {
+        border: 6px solid #f2d200;
+        width: 70%;
+        margin: auto;
+        padding: 40px;
+        box-shadow: 0 0 25px #f2d200;
+    }
+
+    h1 {
+        font-size: 60px;
+        letter-spacing: 6px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 32px;
+        margin-top: -10px;
+        opacity: 0.9;
+    }
+
+    #startBtn {
+        margin-top: 50px;
+        padding: 20px 50px;
+        font-size: 30px;
+        background: #f2d200;
+        color: black;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 10px #f2d200; }
+        50% { box-shadow: 0 0 30px #f2d200; }
+        100% { box-shadow: 0 0 10px #f2d200; }
+    }
+
+    #loadingBarContainer {
+        width: 60%;
+        height: 28px;
+        background: #222;
+        border: 3px solid #f2d200;
+        margin: 40px auto;
+        display: none;
+        border-radius: 6px;
+    }
+
+    #loadingBar {
+        width: 0%;
+        height: 100%;
+        background: #f2d200;
+        transition: width 0.2s linear;
+        border-radius: 4px;
+    }
+
+    #statusText {
+        margin-top: 25px;
+        font-size: 24px;
+        display: none;
+    }
+</style>
 </head>
+
 <body>
 
-<audio id="brutusVoice" src="media/brutus_intro_voice.mp3"></audio>
-<script>
-  window.onload = () => {
-    const v = document.getElementById("brutusVoice");
-    if (v) v.play();
-  };
-</script>
+<div class="frame">
+    <h1>TOP SECRET</h1>
+    <h2>TRÜMMER‑FORTBILDUNG – WORKSHOP<br>Fachdienst Rettungshundearbeit<br>Malchin – August 2026</h2>
 
-<video autoplay muted playsinline style="width:100%; margin-top:40px;">
-  <source src="media/intro.mp4" type="video/mp4">
-</video>
+    <button id="startBtn" onclick="startMission()">EINSATZ STARTEN</button>
 
-<div class="titlebox">
-  <h1>TOP SECRET</h1>
-  <p>Workshop – Fachdienst Rettungshundearbeit<br>Malchin – August 2026</p>
-  <button class="startbtn" onclick="window.location.href='sector1.html'">
-    Einsatz starten
-  </button>
+    <div id="loadingBarContainer">
+        <div id="loadingBar"></div>
+    </div>
+
+    <div id="statusText">Initialisiere BRUTUS‑System…</div>
 </div>
+
+<audio id="introVoice" src="sounds/brutus_intro_voice.mp3"></audio>
+
+<script>
+function startMission() {
+    const audio = document.getElementById("introVoice");
+    const bar = document.getElementById("loadingBar");
+    const container = document.getElementById("loadingBarContainer");
+    const status = document.getElementById("statusText");
+
+    document.getElementById("startBtn").style.display = "none";
+    container.style.display = "block";
+    status.style.display = "block";
+
+    audio.play();
+
+    let duration = audio.duration * 1000;
+    if (!duration || duration === 0) duration = 8000; // fallback
+
+    let progress = 0;
+    let interval = setInterval(() => {
+        progress += 1;
+        bar.style.width = progress + "%";
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            status.innerText = "BRUTUS‑System bereit. Starte Einsatz…";
+            setTimeout(() => {
+                window.location.href = "sector1.html";
+            }, 1500);
+        }
+    }, duration / 100);
+}
+</script>
 
 </body>
 </html>
+
