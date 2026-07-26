@@ -27,8 +27,10 @@
 <script>
 function brutusAlert() {
   const w = document.getElementById("brutusWarning");
+  if (!w) return;              // Sicherheitscheck
   w.style.display = "block";
-  document.getElementById("alert").play();
+  const a = document.getElementById("alert");
+  if (a) a.play();
   setTimeout(() => w.style.display = "none", 5000);
 }
 
