@@ -108,12 +108,16 @@ function startMission() {
     container.style.display = "block";
     status.style.display = "block";
 
-    // Audio starten
-    audio.play();
+    // Audio laden erzwingen
+    audio.load();
 
-    // Warten bis die echte Dauer geladen ist
-    audio.onloadedmetadata = () => {
-        let duration = audio.duration * 1000; // echte Länge in ms
+    // Warten bis das MP3 vollständig geladen ist
+    audio.addEventListener("canplaythrough", () => {
+
+        // Jetzt erst abspielen
+        audio.play();
+
+        let duration = audio.duration * 1000;
         let progress = 0;
 
         let interval = setInterval(() => {
@@ -124,15 +128,15 @@ function startMission() {
                 clearInterval(interval);
                 status.innerText = "BRUTUS‑System bereit. Starte Einsatz…";
 
-                // Weiterleitung NACH Ende des Audios
-                audio.onended = () => {
+                audio.addEventListener("ended", () => {
                     window.location.href = "sector1.html";
-                };
+                });
             }
         }, duration / 100);
-    };
+    });
 }
 </script>
+
 
 </body>
 </html>
