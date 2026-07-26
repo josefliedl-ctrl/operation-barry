@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Mastercode</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Mastercode</h1>
+
+<div class="container">
+  <p>Alle Sektoren wurden erfolgreich freigeschaltet.</p>
+
+  <h2 style="font-size:48px; color:#e0b300; letter-spacing:0.25em;">
+    B A R R Y
+  </h2>
+
+  <p>BRUTUS kann jetzt deaktiviert werden.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Sektor 1</title>
+<link rel="stylesheet" href="style.css">
+
+<audio id="alert" src="sounds/alert.mp3"></audio>
+<audio id="success" src="sounds/success.mp3"></audio>
+<audio id="tick" src="sounds/tick.mp3"></audio>
+
+<script>
+function brutusAlert() {
+  const w = document.getElementById("brutusWarning");
+  if (w) {
+    w.style.display = "block";
+    const a = document.getElementById("alert");
+    if (a) a.play();
+    setTimeout(() => w.style.display = "none", 5000);
+  }
+}
+
+window.onload = brutusAlert;
+
+function checkAnswer() {
+  const input = document.getElementById("answer").value.trim().toLowerCase();
+  if (input === "england") {
+    document.getElementById("output").innerText = "Aachen";
+    const s = document.getElementById("success");
+    if (s) s.play();
+    startCountdown();
+  } else {
+    alert("Falsche Antwort!");
+  }
+}
+
+function startCountdown() {
+  let time = 60;
+  const cd = document.getElementById("countdown");
+  const interval = setInterval(() => {
+    const t = document.getElementById("tick");
+    if (t) t.play();
+    cd.innerText = "Weiterleitung in: " + time + " Sekunden";
+    time--;
+    if (time < 0) {
+      clearInterval(interval);
+      window.location.href = "sector2.html";
+    }
+  }, 1000);
+}
+</script>
+</head>
+<body>
+
+<div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
+
+<h1>Sektor 1 – Frage</h1>
+<div class="container">
+  <p>Aus welchem Land stammt die historische Idee, Hunde gezielt für die Suche nach unter Trümmern verschütteten Menschen auszubilden?</p>
+  <input id="answer" placeholder="Antwort eingeben">
+  <button onclick="checkAnswer()">Bestätigen</button>
+  <div id="output"></div>
+  <div id="countdown"></div>
+</div>
+
+</body>
+</html>

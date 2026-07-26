@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Operation BARRY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="brutusVoice" src="media/brutus_intro_voice.mp3"></audio>
+<script>
+  window.onload = () => {
+    const v = document.getElementById("brutusVoice");
+    if (v) v.play();
+  };
+</script>
+
+<video autoplay muted playsinline style="width:100%; margin-top:40px;">
+  <source src="media/intro.mp4" type="video/mp4">
+</video>
+
+<div class="titlebox">
+  <h1>TOP SECRET</h1>
+  <p>Workshop – Fachdienst Rettungshundearbeit<br>Malchin – August 2026</p>
+  <button class="startbtn" onclick="window.location.href='sector1.html'">
+    Einsatz starten
+  </button>
+</div>
+
+</body>
+</html>

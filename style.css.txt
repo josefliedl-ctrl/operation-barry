@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f26;
+  color: #fff;
+  text-align: center;
+}
+
+.titlebox {
+  margin-top: 40px;
+  padding: 40px;
+  background: rgba(255,255,255,0.05);
+  border: 3px solid #e0b300;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+}
+
+.titlebox h1 {
+  font-size: 60px;
+  letter-spacing: 0.25em;
+  color: #e0b300;
+}
+
+.startbtn {
+  margin-top: 40px;
+  padding: 20px 40px;
+  font-size: 28px;
+  background: #e0b300;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.container {
+  margin-top: 60px;
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #e0b300;
+  border-radius: 12px;
+}
+
+input {
+  padding: 12px;
+  width: 60%;
+  font-size: 20px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 20px;
+  background: #e0b300;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#output {
+  margin-top: 30px;
+  font-size: 32px;
+  color: #1fbad6;
+}
+
+#countdown {
+  margin-top: 20px;
+  font-size: 26px;
+  color: #ff3b3b;
+}
+
+#brutusWarning {
+  background:#8b0000;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  letter-spacing:0.1em;
+  display:none;
+}
