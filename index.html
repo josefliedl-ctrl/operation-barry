@@ -108,16 +108,28 @@ function startMission() {
     container.style.display = "block";
     status.style.display = "block";
 
-    // Audio laden erzwingen
+    // Audio laden
     audio.load();
 
-    // Warten bis das MP3 vollständig geladen ist
-    audio.addEventListener("canplaythrough", () => {
+    // Fallback, falls Dauer nicht rechtzeitig geladen wird
+    let fallbackDuration = 8000; // 8 Sekunden
 
-        // Jetzt erst abspielen
-        audio.play();
+    // Wenn die Dauer geladen ist
+    audio.addEventListener("loadedmetadata", () => {
+        startLoading(audio.duration * 1000);
+    });
 
-        let duration = audio.duration * 1000;
+    // Falls loadedmetadata NICHT kommt → nach 1 Sekunde fallback starten
+    setTimeout(() => {
+        if (audio.duration === Infinity || audio.duration === 0) {
+            startLoading(fallbackDuration);
+        }
+    }, 1000);
+
+    // Audio starten
+    audio.play();
+
+    function startLoading(duration) {
         let progress = 0;
 
         let interval = setInterval(() => {
@@ -133,9 +145,10 @@ function startMission() {
                 });
             }
         }, duration / 100);
-    });
+    }
 }
 </script>
+
 
 
 </body>
