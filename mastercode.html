@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Mastercode – BRUTUS Shutdown</title>
+<title>Mastercode</title>
 <link rel="stylesheet" href="style.css">
 
 <audio id="alert" src="sounds/alert.mp3"></audio>
@@ -10,15 +10,14 @@
 <audio id="tick" src="sounds/tick.mp3"></audio>
 
 <style>
-/* Vollbild-Erfolgs-Overlay */
 #successOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: black;
-  color: #00ffea;
+  background: rgba(0, 255, 0, 0.85);
+  color: black;
   font-size: 70px;
   font-weight: bold;
   display: none;
@@ -26,24 +25,7 @@
   align-items: center;
   text-align: center;
   z-index: 9999;
-  letter-spacing: 8px;
-  animation: glitch 0.8s infinite;
-}
-
-/* Glitch-Effekt */
-@keyframes glitch {
-  0% { text-shadow: 2px 2px #ff0044; }
-  25% { text-shadow: -2px -2px #00ffee; }
-  50% { text-shadow: 3px -3px #ff0044; }
-  75% { text-shadow: -3px 3px #00ffee; }
-  100% { text-shadow: 2px 2px #ff0044; }
-}
-
-/* Hintergrund-Flackern */
-@keyframes shutdownFlash {
-  0% { background: black; }
-  50% { background: #220000; }
-  100% { background: black; }
+  letter-spacing: 5px;
 }
 </style>
 
@@ -72,9 +54,6 @@ function checkAnswer() {
     const overlay = document.getElementById("successOverlay");
     overlay.style.display = "flex";
 
-    // Hintergrund animieren
-    document.body.style.animation = "shutdownFlash 0.3s infinite";
-
     // Countdown starten
     startCountdown();
 
@@ -96,8 +75,7 @@ function startCountdown() {
 
     if (time < 0) {
       clearInterval(interval);
-      window.location.href = "shutdown.html";
-
+      window.location.href = "shutdown.html"; // oder Finale-Seite
     }
   }, 1000);
 }
@@ -108,7 +86,7 @@ function startCountdown() {
 
 <div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
 
-<!-- EPISCHES Shutdown-Overlay -->
+<!-- Vollbild-Erfolgs-Overlay -->
 <div id="successOverlay">BRUTUS ERFOLGREICH DEAKTIVIERT</div>
 
 <h1>Mastercode – Finale</h1>
@@ -129,4 +107,3 @@ function startCountdown() {
 
 </body>
 </html>
-
