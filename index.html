@@ -108,24 +108,29 @@ function startMission() {
     container.style.display = "block";
     status.style.display = "block";
 
+    // Audio starten
     audio.play();
 
-    let duration = audio.duration * 1000;
-    if (!duration || duration === 0) duration = 8000; // fallback
+    // Warten bis die echte Dauer geladen ist
+    audio.onloadedmetadata = () => {
+        let duration = audio.duration * 1000; // echte Länge in ms
+        let progress = 0;
 
-    let progress = 0;
-    let interval = setInterval(() => {
-        progress += 1;
-        bar.style.width = progress + "%";
+        let interval = setInterval(() => {
+            progress += 1;
+            bar.style.width = progress + "%";
 
-        if (progress >= 100) {
-            clearInterval(interval);
-            status.innerText = "BRUTUS‑System bereit. Starte Einsatz…";
-            setTimeout(() => {
-                window.location.href = "sector1.html";
-            }, 1500);
-        }
-    }, duration / 100);
+            if (progress >= 100) {
+                clearInterval(interval);
+                status.innerText = "BRUTUS‑System bereit. Starte Einsatz…";
+
+                // Weiterleitung NACH Ende des Audios
+                audio.onended = () => {
+                    window.location.href = "sector1.html";
+                };
+            }
+        }, duration / 100);
+    };
 }
 </script>
 
