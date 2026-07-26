@@ -8,6 +8,21 @@
 <audio id="alert" src="sounds/alert.mp3"></audio>
 <audio id="success" src="sounds/success.mp3"></audio>
 <audio id="tick" src="sounds/tick.mp3"></audio>
+</head>
+
+<body>
+
+<div id="brutusWarning" style="
+  background:#8b0000;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  letter-spacing:0.1em;
+  display:none;
+">
+  ⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt. Sicherheitsprotokoll aktiviert.
+</div>
 
 <script>
 function brutusAlert() {
@@ -18,45 +33,7 @@ function brutusAlert() {
 }
 
 window.onload = brutusAlert;
-
-function checkAnswer() {
-  const input = document.getElementById("answer").value.trim().toLowerCase();
-  if (input === "geruchspartikel") {
-    document.getElementById("output").innerText = "Rostock";
-    document.getElementById("success").play();
-    startCountdown();
-  } else {
-    alert("Falsche Antwort!");
-  }
-}
-
-function startCountdown() {
-  let time = 60;
-  const cd = document.getElementById("countdown");
-  const interval = setInterval(() => {
-    document.getElementById("tick").play();
-    cd.innerText = "Weiterleitung in: " + time + " Sekunden";
-    time--;
-    if (time < 0) {
-      clearInterval(interval);
-      window.location.href = "sector4.html";
-    }
-  }, 1000);
-}
 </script>
-</head>
-<body>
-
-<div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
-
-<h1>Sektor 3 – Frage</h1>
-<div class="container">
-  <p>Welche unsichtbaren Spuren gibt jeder Mensch ständig an seine Umgebung ab?</p>
-  <input id="answer" placeholder="Antwort eingeben">
-  <button onclick="checkAnswer()">Bestätigen</button>
-  <div id="output"></div>
-  <div id="countdown"></div>
-</div>
 
 </body>
 </html>
