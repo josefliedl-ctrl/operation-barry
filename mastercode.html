@@ -4,19 +4,71 @@
 <meta charset="UTF-8">
 <title>Mastercode</title>
 <link rel="stylesheet" href="style.css">
+
+<audio id="alert" src="sounds/alert.mp3"></audio>
+<audio id="success" src="sounds/success.mp3"></audio>
+<audio id="tick" src="sounds/tick.mp3"></audio>
+
+<script>
+function brutusAlert() {
+  const w = document.getElementById("brutusWarning");
+  if (w) {
+    w.style.display = "block";
+    const a = document.getElementById("alert");
+    if (a) a.play();
+    setTimeout(() => w.style.display = "none", 5000);
+  }
+}
+
+window.onload = brutusAlert;
+
+function checkAnswer() {
+  const input = document.getElementById("answer").value.trim().toLowerCase();
+  if (input === "barry") {
+    document.getElementById("output").innerText = "BRUTUS erfolgreich deaktiviert.";
+    const s = document.getElementById("success");
+    if (s) s.play();
+    startCountdown();
+  } else {
+    alert("Falsches Lösungswort!");
+  }
+}
+
+function startCountdown() {
+  let time = 10;
+  const cd = document.getElementById("countdown");
+  const interval = setInterval(() => {
+    const t = document.getElementById("tick");
+    if (t) t.play();
+    cd.innerText = "Systemabschaltung in: " + time + " Sekunden";
+    time--;
+    if (time < 0) {
+      clearInterval(interval);
+      window.location.href = "index.html"; // oder Finale-Seite
+    }
+  }, 1000);
+}
+</script>
 </head>
+
 <body>
 
-<h1>Mastercode</h1>
+<div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
+
+<h1>Mastercode – Finale</h1>
 
 <div class="container">
-  <p>Alle Sektoren wurden erfolgreich freigeschaltet.</p>
+  <p><strong>Einsatzkräfte:</strong><br>
+  Sie haben in den vorherigen Sektoren Hinweise zur Abschaltung von BRUTUS erhalten.<br>
+  Bitte kombinieren Sie die Hinweise zum Lösungswort.</p>
 
-  <h2 style="font-size:48px; color:#e0b300; letter-spacing:0.25em;">
-    B A R R Y
-  </h2>
+  <p><strong>Lösungswort eingeben:</strong></p>
 
-  <p>BRUTUS kann jetzt deaktiviert werden.</p>
+  <input id="answer" placeholder="Lösungswort eingeben">
+  <button onclick="checkAnswer()">Bestätigen</button>
+
+  <div id="output"></div>
+  <div id="countdown"></div>
 </div>
 
 </body>
