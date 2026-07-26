@@ -8,32 +8,60 @@
 <audio id="alert" src="sounds/alert.mp3"></audio>
 <audio id="success" src="sounds/success.mp3"></audio>
 <audio id="tick" src="sounds/tick.mp3"></audio>
-</head>
-
-<body>
-
-<div id="brutusWarning" style="
-  background:#8b0000;
-  color:white;
-  padding:15px;
-  text-align:center;
-  font-size:22px;
-  letter-spacing:0.1em;
-  display:none;
-">
-  ⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt. Sicherheitsprotokoll aktiviert.
-</div>
 
 <script>
 function brutusAlert() {
   const w = document.getElementById("brutusWarning");
-  w.style.display = "block";
-  document.getElementById("alert").play();
-  setTimeout(() => w.style.display = "none", 5000);
+  if (w) {
+    w.style.display = "block";
+    const a = document.getElementById("alert");
+    if (a) a.play();
+    setTimeout(() => w.style.display = "none", 5000);
+  }
 }
 
 window.onload = brutusAlert;
+
+function checkAnswer() {
+  const input = document.getElementById("answer").value.trim().toLowerCase();
+  if (input === "40-fache") {
+    document.getElementById("output").innerText = "Rostock";
+    const s = document.getElementById("success");
+    if (s) s.play();
+    startCountdown();
+  } else {
+    alert("Falsche Antwort!");
+  }
+}
+
+function startCountdown() {
+  let time = 60;
+  const cd = document.getElementById("countdown");
+  const interval = setInterval(() => {
+    const t = document.getElementById("tick");
+    if (t) t.play();
+    cd.innerText = "Weiterleitung in: " + time + " Sekunden";
+    time--;
+    if (time < 0) {
+      clearInterval(interval);
+      window.location.href = "sector3.html";
+    }
+  }, 1000);
+}
 </script>
+</head>
+<body>
+
+<div id="brutusWarning">⚠ BRUTUS WARNUNG: Unautorisierter Zugriff erkannt.</div>
+
+<h1>Sektor 2 – Frage</h1>
+<div class="container">
+  <p>Um das Wievielfache ist das Riechvermögen eines Rettungshundes besser als das des Menschen?</p>
+  <input id="answer" placeholder="Antwort eingeben">
+  <button onclick="checkAnswer()">Bestätigen</button>
+  <div id="output"></div>
+  <div id="countdown"></div>
+</div>
 
 </body>
 </html>
