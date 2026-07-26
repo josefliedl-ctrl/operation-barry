@@ -12,18 +12,22 @@
 <script>
 function brutusAlert() {
   const w = document.getElementById("brutusWarning");
-  w.style.display = "block";
-  document.getElementById("alert").play();
-  setTimeout(() => w.style.display = "none", 5000);
+  if (w) {
+    w.style.display = "block";
+    const a = document.getElementById("alert");
+    if (a) a.play();
+    setTimeout(() => w.style.display = "none", 5000);
+  }
 }
 
 window.onload = brutusAlert;
 
 function checkAnswer() {
   const input = document.getElementById("answer").value.trim().toLowerCase();
-  if (input === "1,5-fache" || input === "1.5-fache" || input === "1,5 fache") {
+  if (input === "1,5-fache") {
     document.getElementById("output").innerText = "Berlin";
-    document.getElementById("success").play();
+    const s = document.getElementById("success");
+    if (s) s.play();
     startCountdown();
   } else {
     alert("Falsche Antwort!");
@@ -34,7 +38,8 @@ function startCountdown() {
   let time = 60;
   const cd = document.getElementById("countdown");
   const interval = setInterval(() => {
-    document.getElementById("tick").play();
+    const t = document.getElementById("tick");
+    if (t) t.play();
     cd.innerText = "Weiterleitung in: " + time + " Sekunden";
     time--;
     if (time < 0) {
@@ -60,3 +65,4 @@ function startCountdown() {
 
 </body>
 </html>
+
